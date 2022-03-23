@@ -2,7 +2,6 @@ import { FormEvent, useContext, useEffect, useState } from 'react';
 import Modal from 'react-modal';
 import { FaWindowClose } from 'react-icons/fa';
 import { FormContainer } from './styles';
-import axios from 'axios';
 import { TarefaContext } from '../../contexts/tarefaContext';
 
 interface NovoModalProps {
@@ -16,14 +15,19 @@ export function NovoModal(props: NovoModalProps) {
         criarTarefas,
         editarTarefa,
         valoresPadraoEditarTarefa,
-        atualizarTarefa
+        atualizarTarefa,
+        deletarTarefa
     } = useContext(TarefaContext);
 
-    const [titulo, setTitulo] = useState("");
+    const [id, setId] = useState("");  
+    const [titulo, setTitulo] = useState("");   
     const [descricao, setDescricao] = useState("");
 
     useEffect(() => {
         if (editarTarefa.editar) {
+            setId(editarTarefa.tarefa?.id ?
+                editarTarefa.tarefa.id : '');
+
             setTitulo(editarTarefa.tarefa?.titulo ?
                 editarTarefa.tarefa.titulo : '');
 
@@ -68,6 +72,22 @@ export function NovoModal(props: NovoModalProps) {
         limparCamposAoFecharModal();
     }
 
+    function mostrarBotaoExcluirModal () {
+       return editarTarefa.editar ? true : false;
+    }
+
+    function excluirTarefa() {
+
+        let obj: any = {
+            ...editarTarefa.tarefa,
+            titulo,
+            descricao
+        }
+        deletarTarefa(obj);
+
+        limparCamposAoFecharModal();
+    }
+
     return (
         <Modal
             isOpen={props.visibleNovoModal}
@@ -102,6 +122,14 @@ export function NovoModal(props: NovoModalProps) {
                     type='submit'
                 >
                     {editarTarefa.editar ? 'Editar' : 'Cadastrar'}
+                </button>
+
+                <button
+                    type='button'
+                    hidden={!mostrarBotaoExcluirModal()}
+                    onClick={excluirTarefa}
+                >
+                    Excluir
                 </button>
             </FormContainer>
 

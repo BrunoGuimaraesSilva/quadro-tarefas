@@ -24,6 +24,13 @@ createServer({
 
             return schema.db.tarefas.update(data.id, data);
         })
+
+        this.del('/api/tarefas/:id', (schema, request): any => {
+
+            let id = request.params.id;
+
+            return schema.db.tarefas.remove({id: id});
+        })
     }
 })
 

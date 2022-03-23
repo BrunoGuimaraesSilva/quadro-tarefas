@@ -13,6 +13,7 @@ interface interfaceTarefaContext {
     editarTarefa: InterfaceEditarTarefa;
     valoresPadraoEditarTarefa: () => void;
     atualizarTarefa: (data: InterfaceTarefas) => Promise<void>;
+    deletarTarefa: (data: InterfaceTarefas) => Promise<any>;
 }
 export const TarefaContext = createContext({} as interfaceTarefaContext);
 
@@ -23,6 +24,7 @@ type InterfaceTarefas = {
 }
 
 type PropsTarefasInput = Omit<InterfaceTarefas, 'id'>
+
 // type PropsTarefasInput2 = Pick<InterfaceTarefas, 'titulo'| 'descricao'>
 
 // interface PropsTarefasInput { 
@@ -78,6 +80,24 @@ export function TarefasProvider(props: PropsTarefasProvider) {
         })
     }
 
+    async function deletarTarefa(data: InterfaceTarefas) {
+        const id = data.id ? data.id : null;
+
+        await axios.delete(`/api/tarefas/${id}`)
+        .then((res) => {
+            console.log(res)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+
+        await axios.get('/api/tarefas').then((resposta) => {
+
+            setTarefas(resposta.data)
+
+        })
+    }
+
     function valoresPadraoEditarTarefa() {
         setEditarTarefa({ editar: false, tarefa: null })
     }
@@ -92,7 +112,8 @@ export function TarefasProvider(props: PropsTarefasProvider) {
         <TarefaContext.Provider value={{
             tarefas, criarTarefas,
             atualizarTarefa,
-            funEditarTarefa, editarTarefa, valoresPadraoEditarTarefa
+            funEditarTarefa, editarTarefa, 
+            valoresPadraoEditarTarefa, deletarTarefa
         }}>
             {props.children}
         </TarefaContext.Provider>

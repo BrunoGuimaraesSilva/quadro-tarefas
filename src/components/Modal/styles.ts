@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const FormContainer = styled.form`
 
@@ -45,6 +45,23 @@ export const FormContainer = styled.form`
         padding: 0 1.5rem;
         height: 3rem;
         background: var(--green);
+        color: var(--white);
+        border-radius: 0.25rem;
+        border: 0;
+        font-size: 1rem;
+        margin-top: 1rem;
+        transition: filter 0.2s;
+
+        &:hover {
+            filter: brightness(0.8);
+        }
+    }
+
+    button[type='button'] {
+        width: 100%;
+        padding: 0 1.5rem;
+        height: 3rem;
+        background: var(--red);
         color: var(--white);
         border-radius: 0.25rem;
         border: 0;
