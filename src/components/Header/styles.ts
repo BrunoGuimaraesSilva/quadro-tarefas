@@ -18,6 +18,10 @@ export const Content = styled.div`
         color: var(--white)
     }
 
+    button{
+        margin: 10px;
+    }
+
     div {
         display: flex;
         align-items: center;

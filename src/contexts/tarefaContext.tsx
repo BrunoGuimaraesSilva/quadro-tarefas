@@ -1,40 +1,8 @@
 import axios from "axios";
 import { createContext, ReactNode, useEffect, useState } from "react";
+import { InterfaceEditarTarefa, interfaceTarefaContext, InterfaceTarefas, PropsTarefasInput, PropsTarefasProvider } from "./tarefa.type";
 
-interface InterfaceEditarTarefa {
-    editar: boolean;
-    tarefa: InterfaceTarefas | null;
-}
-
-interface interfaceTarefaContext {
-    tarefas: Array<InterfaceTarefas>;
-    criarTarefas: (data: PropsTarefasInput) => Promise<void>;
-    funEditarTarefa: (data: InterfaceEditarTarefa) => void;
-    editarTarefa: InterfaceEditarTarefa;
-    valoresPadraoEditarTarefa: () => void;
-    atualizarTarefa: (data: InterfaceTarefas) => Promise<void>;
-    deletarTarefa: (data: InterfaceTarefas) => Promise<any>;
-}
 export const TarefaContext = createContext({} as interfaceTarefaContext);
-
-type InterfaceTarefas = {
-    id: string,
-    titulo: string,
-    descricao: string
-}
-
-type PropsTarefasInput = Omit<InterfaceTarefas, 'id'>
-
-// type PropsTarefasInput2 = Pick<InterfaceTarefas, 'titulo'| 'descricao'>
-
-// interface PropsTarefasInput { 
-//     titulo: string,
-//     descricao: string 
-// }
-
-interface PropsTarefasProvider {
-    children: ReactNode;
-}
 
 export function TarefasProvider(props: PropsTarefasProvider) {
 

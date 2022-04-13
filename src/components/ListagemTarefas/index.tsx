@@ -1,71 +1,98 @@
-import { useContext, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { Container } from "./styles";
-import { TarefaContext } from "../../contexts/tarefaContext";
-import { FaPen } from 'react-icons/fa'
+import { TarefaContext, QuadrosContext } from "../../contexts";
+import { FaPen } from "react-icons/fa";
 
-interface interfaceTarefas {
+interface InterfaceTarefas {
     descricao: string;
     id: string;
     titulo: string;
 }
 
+interface InterfaceQuadros {
+    id: string;
+    nome: string;
+    tarefas: Array<InterfaceTarefas>;
+}
+
 interface PropsListarTarefas {
     abrirModal: () => void;
+    abrirModalQuadro: () => void;
 }
-export function ListagemTarefas({ abrirModal }: PropsListarTarefas) {
+export function ListagemTarefas({
+    abrirModal,
+    abrirModalQuadro,
+}: PropsListarTarefas) {
+    const { tarefas, funEditarTarefa } = useContext(TarefaContext);
+    const { quadros, funEditarQuadro } = useContext(QuadrosContext);
 
-    const tarefaCtx = useContext(TarefaContext);
+    //let quadrosMap: Array<InterfaceQuadros> = [];
+    // quadros.forEach((el) => {
+    //     tarefas.map((element) => {
+    //         if (el.id == element.idQuadro) {
+    //             let arrayTarefas: Array<InterfaceTarefas> = []
+    //             let obj = {} as InterfaceQuadros;
+    //             arrayTarefas = [...arrayTarefas, element]
+    //             obj.id = el.id;
+    //             obj.nome = el.nome;
+    //             obj.tarefas = arrayTarefas;
 
-    // const [tarefas, setTarefas] = useState<Array<interfaceTarefas>>([]);
-
+    //             quadrosMap.push(...quadrosMap, obj);
+    //         }
+    //     });
+    // });
 
     return (
         <>
             <Container>
-                <ul>
-                    <h3>Quadro 1</h3>
-                    {
-                        tarefaCtx.tarefas.map((element, index) => (
-                            <li key={element.id} >
-                                <div style={{
-                                    display: 'flex',
-                                    flexDirection: 'column'
-                                }}>
-                                    <h4>{element.titulo}</h4>
-                                    <p>{element.descricao}</p>
-                                </div>
-                                <div>
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            tarefaCtx.funEditarTarefa({
-                                                editar: true,
-                                                tarefa: element
-                                            })
-                                            abrirModal();
-                                        }}
-                                    >
-                                        <FaPen />
-                                    </button>
-                                </div>
-                            </li>
-                        ))
-                    }
+                {quadros.map((quadroEl, index) => (
+                    <ul>
+                        <h3
+                            onClick={() => {
+                                funEditarQuadro({
+                                    editar: true,
+                                    quadro: quadroEl,
+                                });
+                                abrirModalQuadro();
+                            }}
+                        >
+                            {quadroEl.nome}
+                        </h3>
 
-                </ul>
-                {/* 
-                <TarefaContext.Consumer>
-                        {
-                            (data) => {
-                                console.log('data ctx');
-                                console.log(data);
-
-                                return <div>ok</div>
+                        {tarefas.map((element, index) => {
+                            if (quadroEl.id == element.idQuadro) {
+                                return (
+                                    <li key={element.id}>
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                flexDirection: "column",
+                                            }}
+                                        >
+                                            <h4>{element.titulo}</h4>
+                                            <p>{element.descricao}</p>
+                                        </div>
+                                        <div>
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    funEditarTarefa({
+                                                        editar: true,
+                                                        tarefa: element,
+                                                    });
+                                                    abrirModal();
+                                                }}
+                                            >
+                                                <FaPen />
+                                            </button>
+                                        </div>
+                                    </li>
+                                );
                             }
-                        }
-                    </TarefaContext.Consumer>
-                     */}
+                        })}
+                    </ul>
+                ))}
             </Container>
         </>
-    )
+    );
 }

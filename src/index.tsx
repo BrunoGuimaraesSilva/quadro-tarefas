@@ -5,7 +5,8 @@ import { createServer, Model } from 'miragejs';
 
 createServer({
     models: {
-        tarefas: Model
+        tarefas: Model,
+        quadros: Model
     },
     routes() {
 
@@ -26,10 +27,29 @@ createServer({
         })
 
         this.del('/api/tarefas/:id', (schema, request): any => {
-
             let id = request.params.id;
-
             return schema.db.tarefas.remove({id: id});
+        })
+
+        this.get('/api/quadros', (schema, request) => {
+            return schema.db.quadros
+        })
+
+        this.post('/api/quadros', (schema, resquest) => {
+            const data = JSON.parse(resquest.requestBody);
+
+            return schema.db.quadros.insert(data);
+        })
+
+        this.put('/api/quadros', (schema, request) => {
+            const data = JSON.parse(request.requestBody);
+
+            return schema.db.quadros.update(data.id, data);
+        })
+
+        this.del('/api/quadros/:id', (schema, request): any => {
+            let id = request.params.id;
+            return schema.db.quadros.remove({id: id});
         })
     }
 })

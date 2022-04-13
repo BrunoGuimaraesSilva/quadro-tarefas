@@ -1,41 +1,55 @@
-import { useState } from 'react';
-import { GlobalStyle } from './styles/global'
-import { Header } from './components/Header'
-import { NovoModal } from './components/Modal'
-import Modal from 'react-modal';
-import { ListagemTarefas } from './components/ListagemTarefas';
-import { TarefaContext, TarefasProvider } from './contexts/tarefaContext';
+import { useState } from "react";
+import { GlobalStyle } from "./styles/global";
+import { Header } from "./components/Header";
+import { ModalQuadros, ModalTarefas } from "./components/Modal";
+import Modal from "react-modal";
+import { ListagemTarefas } from "./components/ListagemTarefas";
+import { TarefasProvider, QuadrosProvider } from "./contexts";
 
-Modal.setAppElement('#root');
+Modal.setAppElement("#root");
 function App() {
+    const [visibleModalTarefa, setVisibleModalTarefa] =
+        useState<boolean>(false);
+    const [visibleModalQuadro, setVisibleModalQuadro] =
+        useState<boolean>(false);
 
-    const [visibleModal, setVisibleModal] = useState<boolean>(false);
-
-
-    function abrirModal() {
-        setVisibleModal(true)
+    function abrirModalTarefa() {
+        setVisibleModalTarefa(true);
     }
 
-    function fecharModal() {
-        setVisibleModal(false)
+    function fecharModalTarefa() {
+        setVisibleModalTarefa(false);
+    }
+
+    function abrirModalQuadros() {
+        setVisibleModalQuadro(true);
+    }
+
+    function fecharModalQuadros() {
+        setVisibleModalQuadro(false);
     }
 
     return (
-        <TarefasProvider>
-            <div>
-                <GlobalStyle />
-
-                <Header abrirModal={abrirModal} />
-
-                <ListagemTarefas abrirModal={abrirModal} />
-
-                <NovoModal
-                    visibleNovoModal={visibleModal}
-                    fecharModal={fecharModal}
-                />
-
-            </div>
-        </TarefasProvider>
+        <QuadrosProvider>
+            <TarefasProvider>
+                <div>
+                    <GlobalStyle />
+                    <Header
+                        abrirModalTarefa={abrirModalTarefa}
+                        abrirModalQuadros={abrirModalQuadros}
+                    />
+                    <ListagemTarefas abrirModal={abrirModalTarefa} abrirModalQuadro={abrirModalQuadros}/>
+                    <ModalTarefas
+                        visibleNovoModal={visibleModalTarefa}
+                        fecharModal={fecharModalTarefa}
+                    />
+                    <ModalQuadros
+                        visibleNovoModal={visibleModalQuadro}
+                        fecharModal={fecharModalQuadros}
+                    />
+                </div>
+            </TarefasProvider>
+        </QuadrosProvider>
     );
 }
 

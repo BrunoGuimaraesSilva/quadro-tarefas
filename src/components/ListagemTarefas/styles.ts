@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 export const Container = styled.div`
     margin-top: 2rem;
@@ -8,17 +8,24 @@ export const Container = styled.div`
     display: flex;
     justify-content: center;
 
+    @media(max-width: 451px) {
+    flex-direction: column;
+    position: relative;
+  }
+
     ul {
-        width: 30rem;
+        width: 95%;
+        max-width: 420px;
         border-radius: 0.25rem;
         margin: 5px;
         border: 2px solid #d7d7d7;
 
-        background-color: #EBECF0;
+        background-color: #ebecf0;
 
         h3 {
             text-align: center;
-            color: #172B4D;
+            color: #172b4d;
+            cursor: pointer;
         }
 
         li {
@@ -34,8 +41,8 @@ export const Container = styled.div`
             justify-content: space-between;
 
             div {
-                    display: flex;
-                    justify-content: center;
+                display: flex;
+                justify-content: center;
                 button {
                     font-size: 1rem;
 

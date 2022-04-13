@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const FormContainer = styled.form`
+    
 
     h2 {
         color: var(--blue);
@@ -40,7 +41,7 @@ export const FormContainer = styled.form`
         margin-top: 1rem;
     }
 
-    button[type='submit'] {
+    button[type="submit"] {
         width: 100%;
         padding: 0 1.5rem;
         height: 3rem;
@@ -57,7 +58,7 @@ export const FormContainer = styled.form`
         }
     }
 
-    button[type='button'] {
+    button[type="button"] {
         width: 100%;
         padding: 0 1.5rem;
         height: 3rem;
@@ -71,6 +72,28 @@ export const FormContainer = styled.form`
 
         &:hover {
             filter: brightness(0.8);
+        }
+    }
+
+    select {
+        width: 100%;
+        padding: 10px;
+        border-radius: 0.25rem;
+        border: 1px solid #d7d7d7;
+
+        background: #e7e9ee;
+        margin-top: 1rem;
+
+        font-size: 1rem;
+
+        &::placeholder {
+            color: var(--text-body);
+        }
+
+        option {
+            background: #e7e9ee;
+            font-size: 1rem;
+            font-weight: 400;
         }
     }
 `;
