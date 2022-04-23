@@ -48,6 +48,7 @@ export function ModalQuadros(props: NovoModalProps) {
         } else {
             criarQuadros({
                 nome,
+                tarefas: [],
             });
         }
 
