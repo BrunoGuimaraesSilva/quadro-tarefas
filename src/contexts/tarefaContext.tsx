@@ -1,11 +1,13 @@
 import axios from "axios";
-import { createContext, ReactNode, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { InterfaceEditarTarefa, interfaceTarefaContext, InterfaceTarefas, PropsTarefasInput, PropsTarefasProvider } from "./tarefa.type";
 
 export const TarefaContext = createContext({} as interfaceTarefaContext);
 
 export function TarefasProvider(props: PropsTarefasProvider) {
 
+
+      
     const [tarefas, setTarefas] = useState<Array<InterfaceTarefas>>([]);
     const [editarTarefa, setEditarTarefa] = useState<InterfaceEditarTarefa>({
         editar: false, tarefa: null

@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { InterfaceTarefas } from "./tarefa.type";
 
 export interface InterfaceEditarQuadros {
     editar: boolean;
@@ -23,5 +24,6 @@ export interface PropsQuadrosProvider {
 
 export type InterfaceQuadros = {
     id: string,
-    nome:string
+    nome:string,
+    tarefas: Array<InterfaceTarefas>
 }

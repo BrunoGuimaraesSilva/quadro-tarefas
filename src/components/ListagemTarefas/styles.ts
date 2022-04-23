@@ -7,14 +7,15 @@ export const Container = styled.div`
 
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
 
-    @media(max-width: 451px) {
+    /* @media(max-width: 451px) {
     flex-direction: column;
     position: relative;
-  }
+  } */
 
     ul {
-        width: 95%;
+        width: 25rem;
         max-width: 420px;
         border-radius: 0.25rem;
         margin: 5px;
